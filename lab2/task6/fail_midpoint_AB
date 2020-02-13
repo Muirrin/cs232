@@ -1,0 +1,40 @@
+int midpoint_original(int x, int y) {
+    return (x + y)/2;
+}
+int midpoint_A(int x, int y) {
+    return x + ((y - x) / 2);
+}
+
+int midpoint_B(int x, int y) {
+    return ((unsigned int)x + (unsigned int)y) >> 1;
+}
+
+int midpoint_C(int x, int y) {
+    return (x & y) + ((x ^ y) >> 1);
+}
+
+--------------------------------------------------------------------------------
+Midpoint_A:
+I used input 2147483647 and -2147483647 to fail Midpoint_A. In binary, this is
+0b0111 1111 1111 1111 1111 1111 1111 1111 and
+0b1000 0000 0000 0000 0000 0000 0000 0001. When you compute the (y-x),
+it creates a binary overflow, and the rest of the equation cannot be completed as intended.
+
+  1000 0000 0000 0000 0000 0000 0000 0001
+- 0111 1111 1111 1111 1111 1111 1111 1111
+-------------------------------------------
+1 0000 0000 0000 0000 0000 0000 0000 0000
+
+It is shown above that when you perform (y-x), it overflows.
+
+
+
+
+
+Midpoint_B:
+I used input 1 and -300 to fail Midpoint_B.
+It failed because when
+(Unsigned int(0b0000 0000 0000 0000 0000 0000 0000 0001) +
+Unsigned int(0b1111 1111 1111 1111 1111 1110 1101 0100))/2 is done, -300 is read
+as a really big number (4294966996) instead of 300 in binary since the first bit
+is read as a number instead of a sign. This causes the overload.
