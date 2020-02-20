@@ -2,7 +2,7 @@
  * * Does nothing if there is not. */
 
 void CS232(char* src) {
-     char *srcptr, replaceptr; 
+     char *srcptr, replaceptr;
      // char *srcptr, *replaceptr;
      int srcLength = sizeof(src);
      char replacement[15] = "232 is awesome!";
@@ -17,7 +17,7 @@ void CS232(char* src) {
 char * replace_string() {
     char str[15];
     CS232(str);
-    return str
+    return str;
 
 }
 

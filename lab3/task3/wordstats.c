@@ -14,15 +14,15 @@ main ()
   fgets (buf, MAX_BUF, stdin);
   len = strlen(buf);
   do
-    {
-      
-      for (i = 0; i < len; i++)
+ {
+
+  for (i = 0; i < len; i++)
 	{
 	  if (buf[i] >= 'A' && buf[i] <= 'Z')
 	    {
             letter_frequency[buf[i]-65] = letter_frequency[buf[i]-65]+1;
 	    }
-    if (buf[0] >= 'a' && buf[0] <= 'z')
+    else if (buf[i] >= 'a' && buf[i] <= 'z')
     {
          letter_frequency[buf[i]-97] = letter_frequency[buf[i]-97]+1;
     }
@@ -30,6 +30,7 @@ main ()
 	printf("Enter a line of text or press enter to escape: \n");
 	fgets (buf, MAX_BUF, stdin);
 	len = strlen(buf);
+
     }
   while (len > 1);
 
