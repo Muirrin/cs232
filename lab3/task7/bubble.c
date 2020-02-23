@@ -12,11 +12,14 @@ int main()
   char Strings[NUM][LEN];
   int k;
   int i;
+  int j;
+  int m = 0, n = 0;
+  char temp[LEN];
+int holdLength;
   printf("Please enter %d strings, one per line:\n", NUM);
   for(k = 0; k < NUM; k++){
-    for(i = 0; i < LEN; i++){
-      fgets(Strings[k][i], LEN, stdin);
-    }
+      fgets(Strings[k], LEN, stdin);
+
   }
   /* Write a for loop here to read NUM strings.
 
@@ -27,19 +30,33 @@ int main()
 
   puts("\nHere are the strings in the order you entered:");
   for(k = 0; k < NUM; k++){
-    for(i = 0; i < LEN; i++){
+    for(i = 0; i < strlen(Strings[k]); i++){
       putchar(Strings[k][i]);
   }
   }
   /* Write a for loop here to print all the strings. */
-/*
-  while(n < LEN)
+for(k = 0; k < NUM-1; k++)
+{
+  for(j=0; j < NUM - k -1; j++)
   {
-    if()
+    m=0;
+while(m < NUM-1)
+{
+  n=0;
+
+  holdLength = strlen(Strings[m]);
+  if(strlen(Strings[m])<strlen(Strings[m+1]))
+    holdLength = strlen(Strings[m+1]);
+
+  while(n < holdLength)
+  {
     if(Strings[m][n] > Strings[m+1][n]){
-      temp = Strings[m][n];
-      Strings[m][n] = Strings[m+1][n];
-      Strings[m+1][n] = temp;
+
+        for(i = 0; i < holdLength; i++){
+          temp[i] = Strings[m][i];
+          Strings[m][i] = Strings[m+1][i];
+          Strings[m+1][i] = temp[i];
+      }
       break;
     }
     else if(Strings[m][n] < Strings[m+1][n])
@@ -48,7 +65,30 @@ int main()
     }
     n++;
   }
-  */
+  m++;
+}
+}
+}
+
+/*
+for(m = 0; m < NUM-1; m++)
+{
+
+  for(n = 0; n < LEN-2; n++)
+  {
+    if(Strings[m][n] > Strings[m+1][n]){
+
+        for(i = 0; i < LEN-2; i++){
+          temp[i] = Strings[m][i];
+          Strings[m][i] = Strings[m+1][i];
+          Strings[m+1][i] = temp[i];
+      }
+
+  }
+}
+}
+*/
+
   /* Bubble sort */
   /* Write code here to bubble sort the strings in ascending alphabetical order
 
@@ -69,10 +109,11 @@ int main()
 
   puts("\nIn alphabetical order, the strings are:");
   for(k = 0; k < NUM; k++){
-    for(i = 0; i < LEN; i++){
+    for(i = 0; i < strlen(Strings[k]); i++){
       putchar(Strings[k][i]);
   }
   }
+  puts("\n");
   /* Write a for loop here to print all the strings. Feel free to use puts/printf
      etc. for printing each string.
   */
