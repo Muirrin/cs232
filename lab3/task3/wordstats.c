@@ -31,8 +31,7 @@ main ()
 	fgets (buf, MAX_BUF, stdin);
 	len = strlen(buf);
 
-    }
-  while (len > 1);
+    }while (len > 1);
 
   printf ("Distribution of letters in corpus:\n");
   for (i = 0; i < 26; i++)
