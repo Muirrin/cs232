@@ -12,7 +12,7 @@ int main()
   char Strings[NUM][LEN];
   int k;
   int i;
-  int j;
+//  int j;
   int m = 0, n = 0;
   char temp[LEN];
 
@@ -40,8 +40,6 @@ int main()
   /* Bubble sort */
 for(k = 0; k < NUM-1; k++) // iterates through the list NUM times to guarantee the list is sorted
 {
-  for(j=0; j < NUM - k -1; j++)
-  {
     m=0;
 while(m < NUM-1) // iterates through every word
 {
@@ -66,7 +64,7 @@ while(m < NUM-1) // iterates through every word
   }
   m++;
 }
-}
+
 }
 
   /* Write code here to bubble sort the strings in ascending alphabetical order
