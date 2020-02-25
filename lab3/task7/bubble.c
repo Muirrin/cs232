@@ -2,7 +2,7 @@
 
 #include <stdio.h>  /* Need for standard I/O functions */
 #include <string.h> /* Need for strlen() */
-
+#include <ctype.h>
 
 #define NUM 30    /* number of strings */
 #define LEN 1200  /* max length of each string */
@@ -19,8 +19,8 @@ int main()
   printf("Please enter %d strings, one per line:\n", NUM);
   for(k = 0; k < NUM; k++){
       fgets(Strings[k], LEN, stdin);
-
   }
+
   /* Write a for loop here to read NUM strings.
 
      Use fgets(), with LEN as an argument to ensure that an input line that is too
@@ -33,6 +33,7 @@ int main()
   for(k = 0; k < NUM; k++){
     for(i = 0; i < strlen(Strings[k]); i++){
       putchar(Strings[k][i]);
+      Strings[k][i]=tolower(Strings[k][i]);
   }
   }
 
