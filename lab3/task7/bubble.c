@@ -2,9 +2,9 @@
 
 #include <stdio.h>  /* Need for standard I/O functions */
 #include <string.h> /* Need for strlen() */
+#include <ctype.h>
 
-
-#define NUM 30   /* number of strings */
+#define NUM 30    /* number of strings */
 #define LEN 1200  /* max length of each string */
 
 int main()
@@ -12,15 +12,15 @@ int main()
   char Strings[NUM][LEN];
   int k;
   int i;
-  int j;
+//  int j;
   int m = 0, n = 0;
   char temp[LEN];
-int holdLength;
+
   printf("Please enter %d strings, one per line:\n", NUM);
   for(k = 0; k < NUM; k++){
       fgets(Strings[k], LEN, stdin);
-
   }
+
   /* Write a for loop here to read NUM strings.
 
      Use fgets(), with LEN as an argument to ensure that an input line that is too
@@ -28,38 +28,35 @@ int holdLength;
      newline and NULL characters will be included in LEN.
   */
 
+  /* Write a for loop here to print all the strings. */
   puts("\nHere are the strings in the order you entered:");
   for(k = 0; k < NUM; k++){
     for(i = 0; i < strlen(Strings[k]); i++){
       putchar(Strings[k][i]);
+      Strings[k][i]=tolower(Strings[k][i]);
   }
   }
-  /* Write a for loop here to print all the strings. */
-for(k = 0; k < NUM-1; k++)
+
+  /* Bubble sort */
+for(k = 0; k < NUM-1; k++) // iterates through the list NUM times to guarantee the list is sorted
 {
-  for(j=0; j < NUM - k -1; j++)
-  {
     m=0;
-while(m < NUM-1)
+while(m < NUM-1) // iterates through every word
 {
   n=0;
 
-  holdLength = strlen(Strings[m]);
-  if(strlen(Strings[m])<strlen(Strings[m+1]))
-    holdLength = strlen(Strings[m+1]);
-
-  while(n < holdLength)
+  while(n < LEN) //iterates through the two words to compare each letter
   {
-    if(Strings[m][n] > Strings[m+1][n]){
+    if(Strings[m][n] > Strings[m+1][n]){ //compares the two strings, if bigger, then swap and exit while loop
 
-        for(i = 0; i < holdLength; i++){
+        for(i = 0; i < LEN; i++){
           temp[i] = Strings[m][i];
           Strings[m][i] = Strings[m+1][i];
           Strings[m+1][i] = temp[i];
       }
       break;
     }
-    else if(Strings[m][n] < Strings[m+1][n])
+    else if(Strings[m][n] < Strings[m+1][n]) //compares two strings, if smaller then exit while loop
     {
       break;
     }
@@ -67,29 +64,9 @@ while(m < NUM-1)
   }
   m++;
 }
+
 }
-}
 
-/*
-for(m = 0; m < NUM-1; m++)
-{
-
-  for(n = 0; n < LEN-2; n++)
-  {
-    if(Strings[m][n] > Strings[m+1][n]){
-
-        for(i = 0; i < LEN-2; i++){
-          temp[i] = Strings[m][i];
-          Strings[m][i] = Strings[m+1][i];
-          Strings[m+1][i] = temp[i];
-      }
-
-  }
-}
-}
-*/
-
-  /* Bubble sort */
   /* Write code here to bubble sort the strings in ascending alphabetical order
 
      Your code must meet the following requirements:
