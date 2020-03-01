@@ -1,0 +1,4 @@
+I speculate that the frame size is 4 (in decimal),
+because the start in decimal is 4294953616, and the stop in decimal is 4294953620.
+The difference between these two is 4. This means that the frame size is 
+00000000000000000000000000000100 in binary. 

@@ -1,0 +1,2 @@
+My conditional breakpoint sum was 499500, screenshots are attached. 
+
