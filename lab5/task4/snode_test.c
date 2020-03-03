@@ -10,6 +10,8 @@ struct snode *n1, *n2, *n3, *p;
 int main(int argc, char *argv[]) {
 
   // create snodes
+  // TODO: modify func calls to snode_create
+  // to match with new prototypes.
   n1 = snode_create("hello", 5);
   n2 = snode_create("there", 5);
   n3 = snode_create("prof", 4);
@@ -26,7 +28,7 @@ int main(int argc, char *argv[]) {
 
   while (p != NULL) {
     // Complete this line to print the current node's string and   
-    // the stored length (do not use strlen!)
+    // length (you can use strlen!)
     printf("str: %s - length: %d\n" // TODO
 
     // TODO: add code to move p to point to next node

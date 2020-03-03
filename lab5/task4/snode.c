@@ -5,7 +5,8 @@
 
 struct snode *snode_create(char *s, int length) 
 {
- //TODO: implement snode_create	
+ //TODO: implement snode_create, change the prototype to
+ //match with header file
  //return node;
   
 }
