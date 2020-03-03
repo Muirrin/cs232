@@ -13,7 +13,7 @@ void teardown(/*what parameter?*/) {
     //You are not allowed to use globals
 }
 
-void add(node_t * head, char * str, int length){
+void add(node_t ** head, char * str, int length){
     //TODO: implement add to add a new node to front, pointed by head
 }
 
@@ -21,7 +21,7 @@ void add(node_t * head, char * str, int length){
 void dump_all(node_t*);
 int main (int argc, char ** argv) {
     node_t * head = setup();
-    add(head, "hi", 2);
+    add(&head, "hi", 2);
     dump_all(head);
     teardown(/*what argument?*/);
     return 0;
