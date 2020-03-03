@@ -7,8 +7,10 @@ node_t * setup() {
     //TODO:copy setup func from task2
 }
 
-void teardown() {
+void teardown(/*what parameter?*/) {
     //TODO: free all dynamic memory you requested.
+    //Please complete the prototype of teardown.
+    //You are not allowed to use globals
 }
 
 void add(node_t * head, char * str, int length){
@@ -30,7 +32,7 @@ int main (int argc, char ** argv) {
     delete_node_key(head, "prof");
     delete_node_at(head, 0);
     dump_all(head);
-    teardown();
+    teardown(/*what argument?*/);
     return 0;
 }
 
