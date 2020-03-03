@@ -12,6 +12,7 @@ mytype_t ** allocate(int n){
 
   mytypes = calloc(n,sizeof(mytype_t*));
   for(i=0;i<n;i++){
+
     mytypes[i] = malloc(sizeof(mytype_t));
 
     mytypes[i]->a = calloc(i+1,sizeof(int));
@@ -24,12 +25,20 @@ mytype_t ** allocate(int n){
   }
 
   return mytypes;
+  free(mytypes);
 }
 
 void deallocate(mytype_t ** mytypes){
-
   /*Complete me*/
+  for(int i=0;i<10;i++)
+  {
+    free(mytypes[i]->a);
+  }
+  for(int j=0;j<10;j++){
+    free(mytypes[j]);
 
+  }
+free(mytypes);
 }
 
 int main(){

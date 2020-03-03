@@ -2,13 +2,16 @@
 #include <stdlib.h>
 int * makearray(int size,int base){
 
-  int array[size];
+  int * array = (int*)calloc(size,sizeof(int));
   int j;
 
-  for(j=0;j<size;j++)
+  for(j=0;j<size;j++){
     array[j] = base*=2; //doubling base
 
-  return array;
+  }
+
+    return array;
+
 }
 
 int main(){
@@ -27,6 +30,7 @@ int main(){
     sum+=a2[j];
   }
   printf("\n");
-
   printf("SUM: %d\n", sum);
+free(a1);
+free(a2);
 }
