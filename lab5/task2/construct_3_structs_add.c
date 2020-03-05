@@ -43,13 +43,13 @@ void teardown(node_t * head) {
     //You are not allowed to use globals
 }
 
-void add(node_t ** phead, char * str, int length){
+void add(node_t ** head, char * str, int length){
     //TODO: implement add to add a new node to front, pointed by head
     node_t * insertedNode;
     insertedNode = malloc(sizeof(node_t));
     insertedNode->length = length;
-    insertedNode->next = *phead;
-    *phead = insertedNode;
+    insertedNode->next = *head;
+    *head = insertedNode;
       strcpy(insertedNode->str,"hi");
 
     /*insertedNode->next =(head->next);
