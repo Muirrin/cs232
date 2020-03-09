@@ -5,24 +5,104 @@ typedef struct snode node_t;
 
 node_t * setup() {
     //TODO:copy setup func from task2
+    //TODO:copy setup func from task1
+    //TODO:head declared for you
+    //Allocate three more pointers
+    //head for the first Node, and temporary pointers node1, node2 and node3
+    node_t * head;
+    node_t * node2;
+    node_t * node3;
+    //Allocate three node pointees and store references to them in the three pointers
+    head =malloc(sizeof(node_t));
+    node2=malloc(sizeof(node_t));
+    node3=malloc(sizeof(node_t));
+    //Dereference each pointer to store the appropriate number and string into the length and str fields in its pointee
+    head ->length = 5;
+    node2->length = 5;
+    node3->length = 4;
+    strcpy(head->str, "hello");
+    strcpy(node2->str, "there");
+    strcpy(node3->str, "prof");
+
+    //Dereference each pointer to access the .next field in its pointee,
+    //and use pointer assignment to set the .next field to point to the appropriate Node.
+
+    head->next = node2;
+    node2->next = node3;
+    node3->next = NULL;
+
+   return head;
 }
 
-void teardown(/*what parameter?*/) {
+void teardown(node_t *head) {
     //TODO: free all dynamic memory you requested.
     //Please complete the prototype of teardown.
     //You are not allowed to use globals
+    free(head->next->next->next);
+    free(head->next->next);
+    free(head->next);
+    free(head);
+
+
 }
 
 void add(node_t ** head, char * str, int length){
     //TODO: copy add func from task2
+
+
+        //TODO: implement add to add a new node to front, pointed by head
+        node_t * insertedNode;
+        insertedNode = malloc(sizeof(node_t));
+        insertedNode->length = length;
+        insertedNode->next = *head;
+        *head = insertedNode;
+          strcpy(insertedNode->str,str);
+
+        /*insertedNode->next =(head->next);
+        head->next = head->next->next;
+        head->next->next = NULL;*/
+
 }
 void delete_node_at(node_t ** head, int idx) {
-    //TODO: implement delete a node based on index
+    //TODO: impl[ement delete a node based on index
 	//deletes a node at index idx, which ranges from zero to the length of the list - 1.
-} 
+int i = 0;
+node_t * temp = *head;
+if(idx==0){
+  *head = temp->next;
+  free(temp);
+}
+else{
+  while( i != idx){
+  temp = temp->next;
+  i++;
+}
+free(temp);
+
+}
+}
 void delete_node_key(node_t **head, char * key) {
     //TODO: implement delete a node based on key
-	//given a certain key, find and delete. 
+	//given a certain key, find and delete.
+ int bool = 1;
+ node_t * temp = *head;
+
+  if(strcmp(temp->str,key)==0){
+    free(temp);
+
+  }
+  else{
+    while(bool==1){
+    if(strcmp((temp->next)->str,key)==0)
+  {
+      bool--;
+    }
+    temp = temp->next;
+
+  }
+
+  free(temp);
+  }
 }
 //You can ignore the following code for testing
 void dump_all(node_t*);
@@ -32,7 +112,7 @@ int main (int argc, char ** argv) {
     delete_node_key(&head, "prof");
     delete_node_at(&head, 0);
     dump_all(head);
-    teardown(/*what argument?*/);
+    teardown(head);
     return 0;
 }
 
