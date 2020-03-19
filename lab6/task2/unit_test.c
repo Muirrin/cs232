@@ -19,7 +19,7 @@ test_list_node_new() {
   char *val = "some value";
   node_t *node = snode_create(val);
   assert(strcmp(snode_get_str(node), val)==0);
-  free(node);
+  snode_destroy(node);
 }
 
 static void
