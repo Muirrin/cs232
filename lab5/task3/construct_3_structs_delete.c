@@ -64,22 +64,42 @@ void add(node_t ** head, char * str, int length){
 
 }
 void delete_node_at(node_t ** head, int idx) {
-    //TODO: impl[ement delete a node based on index
-	//deletes a node at index idx, which ranges from zero to the length of the list - 1.
-int i = 0;
-node_t * temp = *head;
-if(idx==0){
-  *head = temp->next;
-  free(temp);
-}
-else{
-  while( i != idx){
-  temp = temp->next;
-  i++;
-}
-free(temp);
+  //stores the head node
 
-}
+  node_t * temp = *head;
+
+  //if head node is at the index we want to remove
+
+  if(idx==0){
+
+    *head = temp->next;
+
+    free(temp);
+
+  }
+
+  else{
+
+    // previous node of the node that we want to delete
+
+       for (int i=0; temp!=NULL && i<idx-1; i++)
+
+            temp = temp->next;
+
+
+
+       // temp->next is the node to be deleted
+
+       //stores pointer of the next of node that will be deleted
+
+       node_t *next = temp->next->next;
+
+       free(temp->next);
+
+       temp->next = next;
+
+  }
+
 }
 void delete_node_key(node_t **head, char * key) {
     //TODO: implement delete a node based on key
