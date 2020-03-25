@@ -123,18 +123,28 @@ void delete_node_key(node_t **head, char * key) {
   }
   */
 
-  node_t * temp = *head;
+node_t * temp  = *head;
+node_t * prev  = NULL;
 
-     while(temp!=NULL){
-     if(strcmp(temp->str,key)==0)
+if(temp != NULL && strcmp(temp->str,key)==0)
+{
+    *head = temp->next;
+    free(temp);
+    return;
+}
+
+while (temp != NULL)
+{
+    if (strcmp(temp->str,key)==0)
     {
-      free(temp);
-      temp = temp->next;
-      break;
-     }
-     temp = temp->next;
-   }
-
+        if (prev != NULL)
+            prev->next = temp->next;
+        free(temp);
+        return;
+    }
+    prev = temp;
+    temp = temp->next;
+}
 }
 //You can ignore the following code for testing
 void dump_all(node_t*);
