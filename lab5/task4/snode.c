@@ -28,4 +28,4 @@ void snode_destroy(struct snode * s)
  //TODO: implement snode_destroy
  free(s->str);
  free(s);
-};
+}
