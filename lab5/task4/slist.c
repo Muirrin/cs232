@@ -1,6 +1,5 @@
 #include "slist.h"
 #include "snode.h"
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -22,15 +21,25 @@ struct slist *slist_create(){
  * returns a pointer to the newly added node
  */
 struct snode* slist_add_back(struct slist *l, char *str){
-
-    struct snode * new = NULL;
-    new = snode_create(str);
-
-  struct snode * last = l->back;
+  struct snode * new = snode_create(str);
+  struct snode * temp = l->front;
+  if(l == NULL){
+    l->front = new;
     l->back = new;
-    last->next = new;
     return new;
+  }
+  else{
+    while(temp != NULL){
+      temp = temp->next;
+    /*  new->next = NULL;
+      l->back = new;
+      return new; */
+    }
+    temp = new;
+    temp->next = NULL;
 
+    return new;
+  }
 }
 /**
  * Inserts new node in slist before the first node.
@@ -80,7 +89,7 @@ struct snode* slist_add_front(struct slist *l, char *str){
  * @return struct snode* or NULL if no match
  */
 struct snode* slist_find(struct slist *l, char *str){
-  struct snode *temp = (struct snode*)malloc(sizeof(struct snode));
+  struct snode *temp;
   temp = l->front;
 do{
   if(strcmp(temp->str,str)==0)
@@ -96,16 +105,13 @@ return NULL;
  * @param l pointer tot he list
  */
 void slist_destroy(struct slist *l){
-  struct snode *n1 = (struct snode*)malloc(sizeof(struct snode));
-  n1 = l->front;
-  struct snode *n2 = (struct snode*)malloc(sizeof(struct snode));
-
-  while(n1!=NULL){
-    n2 = n1->next;
-    free(n1);
-    n1=n2;
-  }
-  l->front = NULL;
+  struct snode * temp = l->front;
+  while(l->front!= NULL){
+    temp = l->front;
+    l->front = temp->next;
+    free(temp);
+  //l->front = NULL;
+}
 }
 /**
  * Traverse the list and print the content of each node.
@@ -113,7 +119,7 @@ void slist_destroy(struct slist *l){
  * @param l pointer to the list (non-NULL)
  */
 void slist_traverse(struct slist *l){
-  struct snode *temp = (struct snode*)malloc(sizeof(struct snode));
+  struct snode *temp;
   temp = l->front;
 
 while(temp != NULL){
@@ -128,7 +134,7 @@ while(temp != NULL){
  * @param l pointer to the list (non-NULL)
  */
 uint32_t slist_length(struct slist *l){
-  struct snode *temp = (struct snode*)malloc(sizeof(struct snode));
+  struct snode *temp;
   temp = l->front;
   int len = 0;
   while(temp != NULL){
@@ -147,14 +153,31 @@ uint32_t slist_length(struct slist *l){
  */
 void slist_delete(struct slist *l, char *str){
 
-  struct snode *temp = (struct snode*)malloc(sizeof(struct snode));
-  temp = l->front;
+  struct snode * temp  = l->front;
+  struct snode * prev  = NULL;
 
-while(temp != NULL){
-    if(strcmp(temp->str,str)==0)
-    {
+  if(temp != NULL && strcmp(temp->str,str)==0)
+  {
+      l->front = temp->next;
       free(temp);
-    }
+      return;
   }
+  else{
+  while (temp != NULL)
+  {
+      if (strcmp(temp->str,str)==0)
+      {
+
+              prev->next = temp->next;
+              free(temp);
+              return;
+      }
+      prev = temp;
+      temp = temp->next;
+
+  }
+  }
+
+
 
 }
