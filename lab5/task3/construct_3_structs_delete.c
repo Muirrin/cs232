@@ -38,12 +38,12 @@ void teardown(node_t *head) {
     //TODO: free all dynamic memory you requested.
     //Please complete the prototype of teardown.
     //You are not allowed to use globals
-    free(head->next->next->next);
-    free(head->next->next);
-    free(head->next);
-    free(head);
-
-
+    node_t * temp = head;
+    while(head!= NULL){
+      temp = head;
+      head = head->next;
+      free(temp);
+    }
 }
 
 void add(node_t ** head, char * str, int length){
@@ -65,41 +65,22 @@ void add(node_t ** head, char * str, int length){
 }
 void delete_node_at(node_t ** head, int idx) {
   //stores the head node
-
   node_t * temp = *head;
-
   //if head node is at the index we want to remove
-
   if(idx==0){
-
     *head = temp->next;
-
     free(temp);
-
   }
-
   else{
-
     // previous node of the node that we want to delete
-
        for (int i=0; temp!=NULL && i<idx-1; i++)
-
             temp = temp->next;
-
-
-
        // temp->next is the node to be deleted
-
        //stores pointer of the next of node that will be deleted
-
        node_t *next = temp->next->next;
-
        free(temp->next);
-
        temp->next = next;
-
   }
-
 }
 void delete_node_key(node_t **head, char * key) {
     //TODO: implement delete a node based on key
@@ -137,13 +118,13 @@ while (temp != NULL)
 {
     if (strcmp(temp->str,key)==0)
     {
-        if (prev != NULL)
             prev->next = temp->next;
-        free(temp);
-        return;
+            free(temp);
+            return;
     }
     prev = temp;
     temp = temp->next;
+
 }
 }
 //You can ignore the following code for testing
