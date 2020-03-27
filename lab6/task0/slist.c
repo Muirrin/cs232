@@ -11,6 +11,8 @@
 struct slist *slist_create(){
   struct slist *ptr;
   ptr  = (struct slist*)malloc(sizeof(struct slist));
+  ptr->front =NULL;
+  ptr->back=NULL;
   return ptr;
 }
 /**
