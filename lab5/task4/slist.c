@@ -21,25 +21,21 @@ struct slist *slist_create(){
  * returns a pointer to the newly added node
  */
 struct snode* slist_add_back(struct slist *l, char *str){
-  struct snode * new = snode_create(str);
-  struct snode * temp = l->front;
-  if(l == NULL){
-    l->front = new;
-    l->back = new;
-    return new;
-  }
-  else{
-    while(temp != NULL){
-      temp = temp->next;
-    /*  new->next = NULL;
-      l->back = new;
-      return new; */
-    }
-    temp = new;
-    temp->next = NULL;
+//creates new node, sets temp to the front node
+struct snode * new = snode_create(str);
+ struct snode * temp = l->back;
+ if(l->back == NULL){
+   l->front = new;
+   l->back = new;
 
-    return new;
-  }
+   return new;
+ }
+ else{
+   temp->next = new;
+   l->back = new;
+
+   return new;
+ }
 }
 /**
  * Inserts new node in slist before the first node.
@@ -96,7 +92,8 @@ do{
   {
       return temp;
   }
-}while(temp->next != NULL);
+  temp = temp->next;
+}while(temp != NULL);
 return NULL;
 }
 /**
@@ -109,9 +106,10 @@ void slist_destroy(struct slist *l){
   while(l->front!= NULL){
     temp = l->front;
     l->front = temp->next;
-    free(temp);
+    snode_destroy(temp);
   //l->front = NULL;
 }
+free(l);
 }
 /**
  * Traverse the list and print the content of each node.
@@ -159,7 +157,7 @@ void slist_delete(struct slist *l, char *str){
   if(temp != NULL && strcmp(temp->str,str)==0)
   {
       l->front = temp->next;
-      free(temp);
+      snode_destroy(temp);
       return;
   }
   else{
@@ -169,7 +167,7 @@ void slist_delete(struct slist *l, char *str){
       {
 
               prev->next = temp->next;
-              free(temp);
+              snode_destroy(temp);
               return;
       }
       prev = temp;
@@ -177,7 +175,4 @@ void slist_delete(struct slist *l, char *str){
 
   }
   }
-
-
-
 }
