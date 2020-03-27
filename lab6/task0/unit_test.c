@@ -14,16 +14,15 @@ typedef struct snode node_t;
 typedef struct slist list_t;
 
 // Tests
-static void
-test_list_node_new() {
+static void test_list_node_new() {
   char *val = "some value";
   node_t *node = snode_create(val);
   assert(strcmp(snode_get_str(node), val)==0);
+//	printf("%s", snode_get_str(node));
   snode_destroy(node);
 }
 
-static void
-test_list_add_back() {
+static void test_list_add_back() {
   // Setup, think about it, why 3 nodes?
   // because this tests front, middle, and end
   list_t *list = slist_create();
@@ -52,8 +51,7 @@ test_list_add_back() {
   slist_destroy(list);
 }
 
-static void
-test_list_add_front() {
+static void test_list_add_front() {
   // Setup
   list_t *list = slist_create();
 
@@ -79,8 +77,7 @@ test_list_add_front() {
   slist_destroy(list);
 }
 
-static void
-test_list_find() {
+static void test_list_find() {
   list_t *list = slist_create();
 
   // a b c
@@ -103,8 +100,7 @@ test_list_find() {
 
 }
 
-static void
-test_list_delete() {
+static void test_list_delete() {
   // Setup
   list_t *list = slist_create();
 
