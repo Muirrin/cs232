@@ -18,4 +18,4 @@ main:
   jmp .L3
 .L4:
   leave
-  retm
+  ret
