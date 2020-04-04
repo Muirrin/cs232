@@ -9,10 +9,9 @@ int main()
 
   printf("Enter radius (in mm):\n");
   scanf("%f", &r);
-
-  a = (PI * r * r)/25.4;
-c = (PI * (2 * r))/25.4;
-
+r = r/25.4;
+a = (PI * r *r);
+c = (PI * 2 * r);
   printf("Circle's area is %3.2f (sq in).\n", a);
 printf("Its circumference is %3.2f (in).\n", c);
 }
