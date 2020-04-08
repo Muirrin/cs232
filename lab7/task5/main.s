@@ -9,14 +9,14 @@ password:
 main:
   pushl %ebp
   movl %esp,%ebp
-  subl $12,%esp
+  subl $12,%esp   //char input[12];
   pushl %ebx
   pushl $.LC0
-  call printf
+  call printf   //prints .LC0
   leal -8(%ebp),%eax
   pushl %eax
   pushl $.LC1
-  call scanf
+  call scanf  //scanf("%s", into .LC1)
   movl $0,-12(%ebp)
   leal 12(%esp),%esp
 .L2:
