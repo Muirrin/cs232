@@ -19,14 +19,11 @@ int main() {
     int k=0;
     printf("please enter your password\n");
     scanf("%s", input);
-
-    start:
-    if(8>k){
-        if(65<=input[k] && 90>=input[k]){
+    while(8>k){
+        if(65<=input[k] && 91>=input[k]){
           input[k]=input[k]+32;
         }
         k++;
-        goto start;
     }
     if(strcmp(password, input)==0){
         return 0;
