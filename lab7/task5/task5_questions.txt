@@ -4,4 +4,4 @@
 
 2.Where is the password “secret” stored?
 
-  The password "secret" is stored in .LC0
+  The password "secret" is stored in password above the main method. This saves the chars as hex.
