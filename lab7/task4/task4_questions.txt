@@ -5,7 +5,9 @@ It gets evaluated to cmpl $6,-4(%ebp).
 2.What happens if we delete the “jmp” instruction?
 
 If we delete the jmp instruction, the else statement is not executed.
+JYM: and then what?
 
 3.Can you rewrite the condition with “jg” in place of “jle”? Why or why not?
 
 You cannot rewrite it like that because it changes the logic of the code. jg is saying signed ">", while jle is saying signed "<="
+JYM: it is possible to swap jg with jle as long as you swap both code blocks with jump targets.
