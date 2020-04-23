@@ -1,0 +1,5 @@
+#1: What function does the line i = (addr >> 2) & 7; serve in the simulation?
+
+#2: Compile and execute the direct-mapped cache simulator given in the task. Report the final number of hits and accesses output by the code. Also, based on the pattern of cache hits, estimate the hit rate of the given trace in the steady state (once the compulsory misses are accounted for).
+
+#3: Our implementation of a simple, direct-mapped cache simulator only uses and maintains the tags in its simulation. Why is this enough to get a working example of cache behavior?

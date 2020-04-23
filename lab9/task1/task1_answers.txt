@@ -1,0 +1,60 @@
+Table for yi.trace when set index bits =4, block offset bit = 4 using direct map cache:
+
+----------------------------------------------------------------
+ trace	|Your analysis(miss/hit, set/index id)	|csim-ref output
+----------------------------------------------------------------   
+ L 10,1	|					|	 	 
+ M 20,1	|					|	 	 
+ L 22,1	|					|	 	 
+ S 18,1	|	 	 			|
+ L 110,1|	 	 			|
+ L 210,1|	 	 			|
+ M 12,1	|					|	 	 
+-----------------------------------------------------------------
+
+Table for yi.trace when set index bits =4, block offset bit = 4 using 2 lines per set:
+----------------------------------------------------------------
+ trace	|Your analysis(miss/hit, set/index id)	|csim-ref output
+---------------------------------------------------------------- 
+ L 10,1	|					|	 	 
+ M 20,1	|					|	 	 
+ L 22,1	|					|	 	 
+ S 18,1	|					|	 	 
+ L 110,1|					|	 	 
+ L 210,1|					|	 	 
+ M 12,1	|					|	 	 
+----------------------------------------------------------------
+
+Table for yi.trace when set index bits =4, block offset bit = 2 using direct map cache:
+-----------------------------------------------------------------
+ trace	|Your analysis(miss/hit, set/index id)	|csim-ref output
+-----------------------------------------------------------------   
+ L 10,1	|					|	 	 
+ M 20,1	|					|	 	 
+ L 22,1	|					|	 	 
+ S 18,1	|					|	 	 
+ L 110,1|					|	 	 
+ L 210,1|					|	 	 
+ M 12,1	|					|
+-----------------------------------------------------------------	 	 
+Table for dave.trace when set index bits =4, block offset bit = 4 using direct map cache:
+-----------------------------------------------------------------
+ trace	|Your analysis(miss/hit, set/index id)	|csim-ref output
+-----------------------------------------------------------------   
+ L 10,4	|					|	 	 
+ S 18,4	|					|	 	 
+ L 20,4	|					|	 	 
+ S 28,4	|					|	 	 
+ S 50,4	|					|	 	 
+-----------------------------------------------------------------
+
+Table for dave.trace when set index bits =4, block offset bit = 2 using direct map cache:
+-----------------------------------------------------------------
+ trace	|Your analysis(miss/hit, set/index id)	|csim-ref output
+-----------------------------------------------------------------   
+ L 10,4	|					|	 	 
+ S 18,4	|					|	 	 
+ L 20,4	|					|	 	 
+ S 28,4	|					|	 	 
+ S 50,4	|					|
+----------------------------------------------------------------	 	 
