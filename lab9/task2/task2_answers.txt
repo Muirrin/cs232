@@ -1,5 +1,21 @@
 #1: What function does the line i = (addr >> 2) & 7; serve in the simulation?
 
-#2: Compile and execute the direct-mapped cache simulator given in the task. Report the final number of hits and accesses output by the code. Also, based on the pattern of cache hits, estimate the hit rate of the given trace in the steady state (once the compulsory misses are accounted for).
+(addr >> 2) shifts the bytes of the addr by 2 places. The & 7 performs bitwise operator AND on the addr after the shift, in comparison to 7.
+This extracted index is stored in the variable i. This index gives us the cache set that the address resides in. 
 
-#3: Our implementation of a simple, direct-mapped cache simulator only uses and maintains the tags in its simulation. Why is this enough to get a working example of cache behavior?
+
+#2: Compile and execute the direct-mapped cache simulator given in the task. 
+Report the final number of hits and accesses output by the code. Also, based on the pattern of cache hits, 
+estimate the hit rate of the given trace in the steady state (once the compulsory misses are accounted for).
+
+Final # of hits and accesses output by the code:
+Hits = 68, Accesses = 103, Hit ratio = 0.660194
+After the compulsory misses are accounted for, the hit ratio is approximately .8947368421.
+
+#3: Our implementation of a simple, direct-mapped cache simulator only uses and maintains the tags in its simulation. 
+Why is this enough to get a working example of cache behavior?
+
+In a real cache, the tag identifies the adress from which the data came. In order to perform memory accesses, the tags are compared to the memory address 
+and if they are the same, the data stored in the tag is moved to the processor. This is a lot faster, because 
+the data is taken from the cache instead of the main memory. This is an example of how tags can be used to get 
+a working example of cache behavior because data is stored away from the main memory and a lot of our information is in the tags.
