@@ -1,3 +1,10 @@
 #1: Explain the newly-added function mruUpdate(), briefly outlining its purpose, how it works, and why we would want or need such a function in our fully-associative cache simulator.
 
+The purpose of mruUpdate() is to move the passed index to the front of the array. How it works is it moves through the array it finds an element matching the index (the for loop) , and moves that element to the front of the array by moving the rest of the elements in front of the index back by 1 (the while loop). This is needed in our fully associative cache stimulator because we want a most recently used ordering of the lines, which is what this function does.
+
 #2: Compile and execute the fully-associative cache simulator in the task. Report the final number of hits and accesses output by the code. Based on the pattern of cache hits, estimate the hit rate of the given trace in the steady state (once the compulsory misses are accounted for).
+
+Hits = 76, Accesses = 103, Hit ratio = 0.737864
+
+Once the compulsory misses are accounted for, the hit ratio is approximately 1. 
+
