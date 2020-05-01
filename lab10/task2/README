@@ -1,0 +1,3 @@
+Please try to complete your linked list first before starting on this task, or you can use a standard list lib.
+
+You will need to copy snode.h, snode.c, slist.h, slist.c over, and change the type of data in snode from char* to frame*, if you have not implemented a generic linked list.

@@ -1,0 +1,16 @@
+1. Which order performs the worst? Why? Please write down the latency captured by time for the worst order.
+2. Which order performs the best? Why? Please write down the latency captured by time for the best best.
+3. Does the way we stride through the matrices with respect to the innermost loop affect performance? 
+4. Please complete the following table using valgrind to measure D1 miss rate with regard to different matrix size.
+________________________________________________________________________________
+|Cache miss w.r.t matrix size	|1024	|512	|256	|128	|64	|32	|
+|-------------------------------------------------------------------------------|
+|matrix_mult_ijk		|	|	|	|	|	|	|
+|-------------------------------------------------------------------------------|
+|matrix_mult_jki		|	|	|	|	|	|	|
+|-------------------------------------------------------------------------------|
+|matrix_mult_ikj		|	|	|	|	|	|	|
+|_______________________________|_______|_______|_______|_______|_______|_______|
+	
+5. Based on the table of q4, does the size of the matrix affect performance? Why? Have you noticed the cache miss rate dramatically changes upon a certain dim size? What is the size of the matrix when it happens? and why would it happen? 
+
