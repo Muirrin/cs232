@@ -11,6 +11,8 @@
 struct slist *slist_create(){
   struct slist *ptr;
   ptr  = (struct slist*)malloc(sizeof(struct slist));
+  ptr->front =NULL;
+  ptr->back=NULL;
   return ptr;
 }
 /**
@@ -20,22 +22,24 @@ struct slist *slist_create(){
  * @param str pointer to a C string to store in new list node
  * returns a pointer to the newly added node
  */
-struct snode* slist_add_back(struct slist *l, void *var){
+struct snode* slist_add_back(struct slist *l, void * data){
 //creates new node, sets temp to the front node
-struct snode * new = snode_create(var);
+struct snode * new = snode_create(data);
  struct snode * temp = l->back;
- if(l->back == NULL){
+ if(l->front == NULL){
    l->front = new;
    l->back = new;
-
-   return new;
+ }
+ else if(l->back == NULL){
+   l->front = new;
+   l->back = new;
  }
  else{
    temp->next = new;
    l->back = new;
-
-   return new;
  }
+
+return new;
 }
 /**
  * Inserts new node in slist before the first node.
@@ -44,19 +48,23 @@ struct snode * new = snode_create(var);
  * @param str pointer to a C string to store in new list node
  * returns a pointer to the newly added node
  */
-struct snode* slist_add_front(struct slist *l, void *var){
+struct snode* slist_add_front(struct slist *l, void * data){
 
   struct snode *new = NULL;
-  new = snode_create(var);
+  new = snode_create(data);
 
   if(l->front == NULL){
     l->front = new;
+    l->back = new;
   }
-
+  else if(l->back == NULL){
+    l->front = new;
+    l->back = new;
+  }
   else{
     struct snode *temp = l->front;
-    l->front = new;
     new->next = temp;
+    l->front = new;
   }
   return new;
   /*  temp = l->front;
@@ -84,11 +92,11 @@ struct snode* slist_add_front(struct slist *l, void *var){
  * @parap str pointer to a string
  * @return struct snode* or NULL if no match
  */
-struct snode* slist_find(struct slist *l, void *var){
+struct snode* slist_find(struct slist *l, void * data){
   struct snode *temp;
   temp = l->front;
 do{
-  if(strcmp(temp->data,var)==0)
+  if(strcmp(temp->data,data)==0)
   {
       return temp;
   }
@@ -122,7 +130,7 @@ void slist_traverse(struct slist *l){
 
 while(temp != NULL){
 
-        printf("%p\n", temp->data);
+        printf("%s\n", temp->data);
         temp = temp->next;
 }
 }
@@ -149,21 +157,24 @@ uint32_t slist_length(struct slist *l){
  * @parap str pointer to a string
  * @return struct snode* or NULL if no match
  */
-void slist_delete(struct slist *l, void *var){
+void slist_delete(struct slist *l, void * data){
 
   struct snode * temp  = l->front;
   struct snode * prev  = NULL;
 
-  if(temp != NULL && strcmp(temp->data,var)==0)
+  if(temp != NULL && strcmp(temp->data,data)==0)
   {
       l->front = temp->next;
       snode_destroy(temp);
+      if(l->front == NULL){
+        l->back = NULL;
+      }
       return;
   }
   else{
   while (temp != NULL)
   {
-      if (strcmp(temp->data,var)==0)
+      if (strcmp(temp->data,data)==0)
       {
 
               prev->next = temp->next;
@@ -175,4 +186,26 @@ void slist_delete(struct slist *l, void *var){
 
   }
   }
+}
+
+struct snode * slist_get_front(struct slist *l){
+  struct snode * temp  = l->front;
+  return temp;
+}
+struct snode * slist_get_back(struct slist *l){
+  if(l==NULL){
+    return NULL;
+  }
+  struct snode * temp  = l->back;
+  return temp;
+}
+
+void * snode_get_str(struct snode * a){
+  void *s = a->data;
+  return s;
+}
+
+struct snode * snode_get_next(struct snode * a){
+    struct snode * temp  = a->next;
+  return temp;
 }

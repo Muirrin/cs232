@@ -105,4 +105,13 @@ uint32_t slist_length(struct slist *l);
 void slist_delete(struct slist *l, char *str);
 
 
+//unit test methods
+struct snode * slist_get_front(struct slist *l);
+
+struct snode * slist_get_back(struct slist *l);
+
+char * snode_get_str(struct snode * a);
+
+struct snode * snode_get_next(struct snode * a);
+
 #endif /* _slist_H_ */

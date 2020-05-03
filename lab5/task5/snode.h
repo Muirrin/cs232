@@ -9,7 +9,8 @@
 struct snode {
   //TODO: change str to dynamic allcoation
   void * data;
-  struct snode *next;
+  struct node * next;
+
 };
 
 //TODO: change prototypes of functions to remove

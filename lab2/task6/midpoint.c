@@ -21,7 +21,7 @@ int main(int argc, char ** argv) {
     int b = atoi(argv[2]);
     printf("midpoint_original = %d\n", midpoint_original(a, b));
     printf("midpoint_A = %d\n", midpoint_A(a, b));
-    printf("midpoint_B = %d\n", midpoint_B(a, b));    
+    printf("midpoint_B = %d\n", midpoint_B(a, b));
     printf("midpoint_C = %d\n", midpoint_C(a, b));
     return 0;
 }

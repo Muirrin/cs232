@@ -11,6 +11,8 @@
 struct slist *slist_create(){
   struct slist *ptr;
   ptr  = (struct slist*)malloc(sizeof(struct slist));
+  ptr->front =NULL;
+  ptr->back=NULL;
   return ptr;
 }
 /**
@@ -24,18 +26,20 @@ struct snode* slist_add_back(struct slist *l, char *str){
 //creates new node, sets temp to the front node
 struct snode * new = snode_create(str);
  struct snode * temp = l->back;
- if(l->back == NULL){
+ if(l->front == NULL){
    l->front = new;
    l->back = new;
-
-   return new;
+ }
+ else if(l->back == NULL){
+   l->front = new;
+   l->back = new;
  }
  else{
    temp->next = new;
    l->back = new;
-
-   return new;
  }
+
+return new;
 }
 /**
  * Inserts new node in slist before the first node.
@@ -51,12 +55,16 @@ struct snode* slist_add_front(struct slist *l, char *str){
 
   if(l->front == NULL){
     l->front = new;
+    l->back = new;
   }
-
+  else if(l->back == NULL){
+    l->front = new;
+    l->back = new;
+  }
   else{
     struct snode *temp = l->front;
-    l->front = new;
     new->next = temp;
+    l->front = new;
   }
   return new;
   /*  temp = l->front;
@@ -158,6 +166,9 @@ void slist_delete(struct slist *l, char *str){
   {
       l->front = temp->next;
       snode_destroy(temp);
+      if(l->front == NULL){
+        l->back = NULL;
+      }
       return;
   }
   else{
@@ -175,4 +186,26 @@ void slist_delete(struct slist *l, char *str){
 
   }
   }
+}
+
+struct snode * slist_get_front(struct slist *l){
+  struct snode * temp  = l->front;
+  return temp;
+}
+struct snode * slist_get_back(struct slist *l){
+  if(l==NULL){
+    return NULL;
+  }
+  struct snode * temp  = l->back;
+  return temp;
+}
+
+char * snode_get_str(struct snode * a){
+  char *s = a->str;
+  return s;
+}
+
+struct snode * snode_get_next(struct snode * a){
+    struct snode * temp  = a->next;
+  return temp;
 }

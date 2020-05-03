@@ -6,7 +6,7 @@ struct snode *n1, *n2, *n3, *p, *temp;
 
 //------------ MY MAIN FUNCTION --------------------
 
-int main(int argc, char *argv[]) {
+int main(int argc, void *argv[]) {
 
   // create snodes
   // TODO: modify func calls to snode_create
@@ -28,10 +28,7 @@ int main(int argc, char *argv[]) {
   while (p != NULL) {
     // Complete this line to print the current node's string and
     // length (you can use strlen!)
-    //printf("str: %s - length: %ld\n", p->str, strlen(p->str));
-    printf("contents: %p\n", p->data);
-
-    // TODO
+    printf("str: %s - length: %ld\n", p->data, strlen(p->data)); // TODO
     // TODO: add code to move p to point to next node
     // until you add this line, this program will have an infinite loop.
     p = p->next;
