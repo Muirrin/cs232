@@ -1,60 +1,145 @@
 Table for yi.trace when set index bits =4, block offset bit = 4 using direct map cache:
 
-----------------------------------------------------------------
- trace	|Your analysis(miss/hit, set/index id)	|csim-ref output
-----------------------------------------------------------------   
- L 10,1	|					|	 	 
- M 20,1	|					|	 	 
- L 22,1	|					|	 	 
- S 18,1	|	 	 			|
- L 110,1|	 	 			|
- L 210,1|	 	 			|
- M 12,1	|					|	 	 
------------------------------------------------------------------
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| trace   | Your analysis(miss/hit, set/index id)                                                                                  | csim-ref output   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| L 10,1  | 0x10 = 0b 0000 0001 0000                                                                                               | miss              |
+|         | Set id = 0b0000.                                                                                                       |                   |
+|         | This is a cache miss because this is the first time the address block has ever been accessed before.                   |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| M 20,1  | 0x20 = 0b 0000 0010 0000                                                                                               | miss hit          |
+|         | Set id = 0b0000                                                                                                        |                   |
+|         | This is a cache miss-hit because the data is being loaded, but the address block has never been accessed               |                   |
+|         | before, so it will register as a miss, but since the data is stored after the load, it will also register a hit.       |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| L 22,1  | 0x22 = 0b 0000 0010 0010                                                                                               | hit               |
+|         |                                                                                                                        |                   |
+|         | Set id = 0b 0000 This load instruction is a hit because the cache block has already been accessed before.              |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| S 18,1  | 0x18 = 0000 0001 1000                                                                                                  | hit               |
+|         | Set id = 0b 0000 This is a hit because there is nothing in the cache block yet, and it has been accessed before.       |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| L 110,1 | 0x110 = 0b 0001 0001 0000                                                                                              | miss eviction     |
+|         | Set id = 0b 0001. This instruction results in a cache miss eviction because 10 is stored in the cache block already    |                   |
+|         |                                                                                                                        |                   |
+|         | so it must be evicted. 10 is replaced by 110 in the line.                                                              |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| L 210,1 | 0x210 = 0b 0010 0001 0000                                                                                              | miss eviction     |
+|         | Set id = 0010 This instruction results in a cache miss and eviction because the only line is already taken by 20.      |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| M 12,1  | 0x12 = 0x 0000 0001 0010                                                                                               | miss eviction hit |
+|         | Set id = 0b 0000 This instruction, because it is a modify, when the load is executed 22 is already in the block,       |                   |
+|         | so it registers as a miss and evicts 22. When the store is executed it registers as a hit because 22 has been evicted. |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
 
 Table for yi.trace when set index bits =4, block offset bit = 4 using 2 lines per set:
-----------------------------------------------------------------
- trace	|Your analysis(miss/hit, set/index id)	|csim-ref output
----------------------------------------------------------------- 
- L 10,1	|					|	 	 
- M 20,1	|					|	 	 
- L 22,1	|					|	 	 
- S 18,1	|					|	 	 
- L 110,1|					|	 	 
- L 210,1|					|	 	 
- M 12,1	|					|	 	 
-----------------------------------------------------------------
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| trace   | Your analysis(miss/hit, set/index id)                                                                                  | csim-ref output   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| L 10,1  | 0x10 = 0b 0000 0001 0000                                                                                               | miss              |
+|         | Set id = 0b0000.                                                                                                       |                   |
+|         | This is a cache miss because this is the first time the address block has ever been accessed before.                   |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| M 20,1  | 0x20 = 0b 0000 0010 0000                                                                                               | miss hit          |
+|         | Set id = 0b0000                                                                                                        |                   |
+|         | This is a cache miss-hit because the data is being loaded, but the address block has never been accessed               |                   |
+|         | before, so it will register as a miss, but since the data is stored after the load, it will also register a hit.       |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| L 22,1  | 0x22 = 0b 0000 0010 0010                                                                                               | hit               |
+|         |                                                                                                                        |                   |
+|         | Set id = 0b 0000 This is a hit because there is nothing in the specific line in the cache block yet.                   |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| S 18,1  | 0x18 = 0000 0001 1000                                                                                                  | hit               |
+|         | Set id = 0b 0000 This is a hit because there is nothing in the specific line in the cache block yet.                   |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| L 110,1 | 0x110 = 0b 0001 0001 0000                                                                                              | miss              |
+|         | Set id = 0b 0001. This instruction results in a cache miss because there is nothing to load in that specific           |                   |
+|         | line in the cache block.                                                                                               |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| L 210,1 | 0x210 = 0b 0010 0001 0000                                                                                              | miss eviction     |
+|         | Set id = 0010 This instruction results in a cache miss and eviction because the only line is already taken by 20.      |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| M 12,1  | 0x12 = 0x 0000 0001 0010                                                                                               | miss eviction hit |
+|         | Set id = 0000 This instruction, because it is a modify, when the load is executed 22 is already in the block,          |                   |
+|         | so it registers as a miss and evicts 22. When the store is executed it registers as a hit because 22 has been evicted. |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
 
 Table for yi.trace when set index bits =4, block offset bit = 2 using direct map cache:
------------------------------------------------------------------
- trace	|Your analysis(miss/hit, set/index id)	|csim-ref output
------------------------------------------------------------------   
- L 10,1	|					|	 	 
- M 20,1	|					|	 	 
- L 22,1	|					|	 	 
- S 18,1	|					|	 	 
- L 110,1|					|	 	 
- L 210,1|					|	 	 
- M 12,1	|					|
------------------------------------------------------------------	 	 
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| trace   | Your analysis(miss/hit, set/index id)                                                                                  | csim-ref output   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| L 10,1  | 0x10 = 0b 0000 0001 0000                                                                                               | miss              |
+|         | Set id = 0b0000.                                                                                                       |                   |
+|         | This is a cache miss because this is the first time the address block has ever been accessed before.                   |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| M 20,1  | 0x20 = 0b 0000 0010 0000                                                                                               | miss hit          |
+|         | Set id = 0b0000                                                                                                        |                   |
+|         | This is a cache miss-hit because the data is being loaded, but the address block has never been accessed               |                   |
+|         | before, so it will register as a miss, but since the data is stored after the load, it will also register a hit.       |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| L 22,1  | 0x22 = 0b 0000 0010 0010                                                                                               | hit               |
+|         |                                                                                                                        |                   |
+|         | Set id = 0b 0000 This load instruction is a hit because the cache block has already been accessed before.              |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| S 18,1  | 0x18 = 0000 0001 1000                                                                                                  | miss              |
+|         | Set id = 0b 0000 This store instruction is a miss because the cache block has never been accessed before.              |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| L 110,1 | 0x110 = 0b 0001 0001 0000                                                                                              | miss eviction     |
+|         | Set id = 0b 0001. This instruction results in a cache miss eviction because 10 is stored in the cache block already    |                   |
+|         |                                                                                                                        |                   |
+|         | so it must be evicted. 10 is replaced by 110 in the line.                                                              |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| L 210,1 | 0x210 = 0b 0010 0001 0000                                                                                              | miss eviction     |
+|         | Set id = 0010 This instruction results in a cache miss and eviction because the only line is already taken by 20.      |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+
+| M 12,1  | 0x12 = 0x 0000 0001 0010                                                                                               | miss eviction hit |
+|         | Set id = 0b 0000 This instruction, because it is a modify, when the load is executed 22 is already in the block,       |                   |
+|         | so it registers as a miss and evicts 22. When the store is executed it registers as a hit because 22 has been evicted. |                   |
++---------+------------------------------------------------------------------------------------------------------------------------+-------------------+ 	 
 Table for dave.trace when set index bits =4, block offset bit = 4 using direct map cache:
------------------------------------------------------------------
- trace	|Your analysis(miss/hit, set/index id)	|csim-ref output
------------------------------------------------------------------   
- L 10,4	|					|	 	 
- S 18,4	|					|	 	 
- L 20,4	|					|	 	 
- S 28,4	|					|	 	 
- S 50,4	|					|	 	 
------------------------------------------------------------------
++--------+--------------------------------------------------------------------------------------------------------+-----------------+
+| trace  | Your analysis(miss/hit, set/index id)                                                                  | csim-ref output |
++--------+--------------------------------------------------------------------------------------------------------+-----------------+
+| L 10,4 | 0x10 = 0b 0000 0001 0000 Set id 0x10 = 0b 0000                                                         | miss            |
+|        | This is a cache miss because this is the first time the address block has ever been accessed before.   |                 |
++--------+--------------------------------------------------------------------------------------------------------+-----------------+
+| S 18,4 | 0x18 = 0b 0000 0001 1000 Set id 0x10 = 0b 0000                                                         | hit             |
+|        | This is a hit because since the set-id and index are the same, we can easily find the address because  |                 |
+|        | we know the displacement and would just need to find it.                                               |                 |
++--------+--------------------------------------------------------------------------------------------------------+-----------------+
+| L 20,4 | 0x20 = 0b 0000 0010 0000                                                                               | miss            |
+|        | Set id = 0b 0000                                                                                       |                 |
+|        | This is a miss, because the index is different, and the cache block has never been accessed before.    |                 |
++--------+--------------------------------------------------------------------------------------------------------+-----------------+
+| S 28,4 | 0x28 = 0b 0000 0010 1000                                                                               | hit             |
+|        | Set id = 0b 0000                                                                                       |                 |
+|        | This is a hit because the since the set-id and index are the same, we can easily find the address      |                 |
+|        | because the displacement is known, so we would just need to search for the address.                    |                 |
++--------+--------------------------------------------------------------------------------------------------------+-----------------+
+| S 50,4 | 0x50 = 0b 0000 0101 0000                                                                               | miss            |
+|        | Set id = 0b 0000                                                                                       |                 |
+|        | This is a miss because the index is different, and the cache block has never been accessed before.     |                 |
++--------+--------------------------------------------------------------------------------------------------------+-----------------+
 
 Table for dave.trace when set index bits =4, block offset bit = 2 using direct map cache:
------------------------------------------------------------------
- trace	|Your analysis(miss/hit, set/index id)	|csim-ref output
------------------------------------------------------------------   
- L 10,4	|					|	 	 
- S 18,4	|					|	 	 
- L 20,4	|					|	 	 
- S 28,4	|					|	 	 
- S 50,4	|					|
-----------------------------------------------------------------	 	 
++--------+------------------------------------------------------------------------------------------------------+-----------------+
+| trace  | Your analysis(miss/hit, set/index id)                                                                | csim-ref output |
++--------+------------------------------------------------------------------------------------------------------+-----------------+
+| L 10,4 | 0x10 = 0b 0000 0001 0000 Set id 0x10 = 0b 0000                                                       | miss            |
+|        | This is a cache miss because this is the first time the address block has ever been accessed before. |                 |
++--------+------------------------------------------------------------------------------------------------------+-----------------+
+| S 18,4 | 0x18 = 0b 0000 0001 1000 Set id 0x10 = 0b 0000                                                       | miss            |
+|        | This is a miss because the address block has ever been accessed before.                              |                 |
++--------+------------------------------------------------------------------------------------------------------+-----------------+
+| L 20,4 | 0x20 = 0b 0000 0010 0000                                                                             | miss            |
+|        | Set id = 0b 0000                                                                                     |                 |
+|        | This is a miss because the cache block has never been accessed before.                               |                 |
++--------+------------------------------------------------------------------------------------------------------+-----------------+
+| S 28,4 | 0x28 = 0b 0000 0010 1000                                                                             | miss            |
+|        | Set id = 0b 0000                                                                                     |                 |
+|        | This is a miss because the cache block has never been accessed before.                               |                 |
++--------+------------------------------------------------------------------------------------------------------+-----------------+
+| S 50,4 | 0x50 = 0b 0000 0101 0000                                                                             | miss eviction   |
+|        | Set id = 0b 0000                                                                                     |                 |
+|        | This is a miss eviction because whatever is in the cache block must evicted in order to store.       |                 |
++--------+------------------------------------------------------------------------------------------------------+-----------------+
