@@ -22,9 +22,9 @@ struct slist *slist_create(){
  * @param str pointer to a C string to store in new list node
  * returns a pointer to the newly added node
  */
-struct snode* slist_add_back(struct slist *l, void * data){
+struct snode* slist_add_back(struct slist *l, void * data, int s){
 //creates new node, sets temp to the front node
-struct snode * new = snode_create(data);
+struct snode * new = snode_create(data,s);
  struct snode * temp = l->back;
  if(l->front == NULL){
    l->front = new;
@@ -48,10 +48,10 @@ return new;
  * @param str pointer to a C string to store in new list node
  * returns a pointer to the newly added node
  */
-struct snode* slist_add_front(struct slist *l, void * data){
+struct snode* slist_add_front(struct slist *l, void * data, int s){
 
   struct snode *new = NULL;
-  new = snode_create(data);
+  new = snode_create(data, s);
 
   if(l->front == NULL){
     l->front = new;
@@ -92,11 +92,11 @@ struct snode* slist_add_front(struct slist *l, void * data){
  * @parap str pointer to a string
  * @return struct snode* or NULL if no match
  */
-struct snode* slist_find(struct slist *l, void * data){
+struct snode* slist_find(struct slist *l, void * data, int s){
   struct snode *temp;
   temp = l->front;
 do{
-  if(strcmp(temp->data,data)==0)
+  if(memcmp(temp->data,data, s)==0)
   {
       return temp;
   }
@@ -124,13 +124,13 @@ free(l);
  *
  * @param l pointer to the list (non-NULL)
  */
-void slist_traverse(struct slist *l){
+void slist_traverse(struct slist *l, void(*ptr)(void*)){
   struct snode *temp;
   temp = l->front;
 
 while(temp != NULL){
 
-        printf("%s\n", temp->data);
+        (*ptr)(temp->data);
         temp = temp->next;
 }
 }
@@ -157,12 +157,12 @@ uint32_t slist_length(struct slist *l){
  * @parap str pointer to a string
  * @return struct snode* or NULL if no match
  */
-void slist_delete(struct slist *l, void * data){
+void slist_delete(struct slist *l, void * data, int s){
 
   struct snode * temp  = l->front;
   struct snode * prev  = NULL;
 
-  if(temp != NULL && strcmp(temp->data,data)==0)
+  if(temp != NULL && memcmp(temp->data,data,s)==0)
   {
       l->front = temp->next;
       snode_destroy(temp);
@@ -174,7 +174,7 @@ void slist_delete(struct slist *l, void * data){
   else{
   while (temp != NULL)
   {
-      if (strcmp(temp->data,data)==0)
+      if (memcmp(temp->data,data,s)==0)
       {
 
               prev->next = temp->next;
@@ -187,7 +187,7 @@ void slist_delete(struct slist *l, void * data){
   }
   }
 }
-
+/*
 struct snode * slist_get_front(struct slist *l){
   struct snode * temp  = l->front;
   return temp;
@@ -209,3 +209,4 @@ struct snode * snode_get_next(struct snode * a){
     struct snode * temp  = a->next;
   return temp;
 }
+*/

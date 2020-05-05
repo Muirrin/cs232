@@ -55,7 +55,7 @@ struct slist *slist_create();
  * @param str pointer to a C string to store in new list node
  * returns a pointer to the newly added node
  */
-struct snode* slist_add_back(struct slist *l, void * data);
+struct snode* slist_add_back(struct slist *l, void * data, int s);
 
 /**
  * Inserts new node in slist before the first node.
@@ -64,7 +64,7 @@ struct snode* slist_add_back(struct slist *l, void * data);
  * @param str pointer to a C string to store in new list node
  * returns a pointer to the newly added node
  */
-struct snode* slist_add_front(struct slist *l, void * data);
+struct snode* slist_add_front(struct slist *l, void * data, int s);
 
 /**
  * Returns the first snode with the given string.
@@ -73,7 +73,7 @@ struct snode* slist_add_front(struct slist *l, void * data);
  * @parap str pointer to a string
  * @return struct snode* or NULL if no match
  */
-struct snode* slist_find(struct slist *l, void * data);
+struct snode* slist_find(struct slist *l, void * data, int s);
 
 /**
  * Deallocate a list and all snodes
@@ -87,7 +87,7 @@ void slist_destroy(struct slist *l);
  *
  * @param l pointer to the list (non-NULL)
  */
-void slist_traverse(struct slist *l);
+void slist_traverse(struct slist *l,void(*ptr)(void*));
 
 /**
  * Returns the number of elements in the list (nodes).
@@ -102,7 +102,7 @@ uint32_t slist_length(struct slist *l);
  * @parap str pointer to a string
  * @return struct snode* or NULL if no match
  */
-void slist_delete(struct slist *l, void * data);
+void slist_delete(struct slist *l, void * data, int s);
 
 
 //unit test methods

@@ -15,7 +15,7 @@ struct snode {
 
 //TODO: change prototypes of functions to remove
 
-struct snode *snode_create(void * data);
+struct snode *snode_create(void * d,int s);
 void snode_destroy(struct snode * s);
 
 #endif /* _slist_H_ */

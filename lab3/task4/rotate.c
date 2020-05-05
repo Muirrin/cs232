@@ -30,5 +30,4 @@ if(argc == 5){
 else{
   printf("Rotate needs 4 numbers");
 }
-
 }

@@ -1,7 +1,0 @@
-﻿What instructions is “c=a+b;” converted to?
-
-It is converted to:
-
- movl -4(%ebp),%eax
-        addl -8(%ebp),%eax
-        movl %eax,-12(%ebp)
