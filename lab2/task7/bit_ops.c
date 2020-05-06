@@ -13,7 +13,7 @@ unsigned * get_bits(unsigned x,
     // get_bits dynamically allocates an array a and set a[i] = 1 when (i+start)-th bit
     // of x is 1, otherwise siet a[i] = 0;
     // At last, get_bits returns the address of the array.
-unsigned * a[end];
+unsigned *a[end];
     for(int i=0; (i + start)<=end;i++){
       if(x&(1<<(i+start))){
         a[i] = 1;
@@ -22,7 +22,7 @@ unsigned * a[end];
         a[i] = 0;
       }
     }
-return a;
+return *a;
 }
 
 // Set the bits of x within range of [start, end], in which both are inclusive
@@ -51,8 +51,13 @@ void flip_bits(unsigned * x,
               unsigned start,
               unsigned end) {
                 for(int i=0; (i + start)<=end;i++){
-                  x[i] = ~x[i];
+
     // YOUR CODE HERE
+    for(int i=0; (i + start)<=end;i++){
+      x[i] = ~x[i];
+      //  x[i] ^= (1UL << x[i]);
+      }
+
 }
 }
 
