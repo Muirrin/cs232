@@ -4,6 +4,7 @@
 // Note, the bits are counted from right to left.
 // Return the bit states of x within range of [start, end], in which both are inclusive.
 // Assume 0 <= start & end <= 31
+unsigned * a[32];
 unsigned * get_bits(unsigned x,
                  unsigned start,
                  unsigned end) {
@@ -13,8 +14,9 @@ unsigned * get_bits(unsigned x,
     // get_bits dynamically allocates an array a and set a[i] = 1 when (i+start)-th bit
     // of x is 1, otherwise siet a[i] = 0;
     // At last, get_bits returns the address of the array.
-unsigned * a[end];
-    for(int i=0; (i + start)<=end;i++){
+
+
+    for(int i=0; (i+start)<=end;i++){
       if(x&(1<<(i+start))){
         a[i] = 1;
       }
@@ -51,7 +53,7 @@ void flip_bits(unsigned * x,
               unsigned start,
               unsigned end) {
                 for(int i=0; (i + start)<=end;i++){
-                  x[i] = ~x[i];
+                  int x = ~(x);
     // YOUR CODE HERE
 }
 }
