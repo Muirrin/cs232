@@ -1,6 +1,23 @@
 1. Which order performs the worst? Why? Please write down the latency captured by time for the worst order.
+
+order ijk performs the worst, because it does not exhibit spacial and temporal locality. The strides are accessing the elements in the least efficient manner, therefore it is the slowest. 
+
+real	0m0.686s
+user	0m0.676s
+sys	0m0.004s
+
 2. Which order performs the best? Why? Please write down the latency captured by time for the best best.
+
+ikj performs the best, because it exhibits spacial and temporal locality. The elements being accessed are in close proximity to eachother than the other order of strides, therefore is the most efficient. 
+
+real	0m0.258s
+user	0m0.249s
+sys	0m0.004s
+
 3. Does the way we stride through the matrices with respect to the innermost loop affect performance? 
+
+I don't believe so. I believe that the middle and first loop matter the most with regard to performance. 
+
 4. Please complete the following table using valgrind to measure D1 miss rate with regard to different matrix size.
 ________________________________________________________________________________
 |Cache miss w.r.t matrix size	|1024	|512	|256	|128	|64	|32	|
