@@ -9,7 +9,7 @@ int C[Dim][Dim];
 int
 main()
 {
-    int i, j, k;
+    int i, j, k,r;
 
     for (i = 0; i < Dim; i++)		/* first initialize the matrices */
 	for (j = 0; j < Dim; j++) {
@@ -19,10 +19,12 @@ main()
 	}
 
   	/* then multiply them together */
-    for (i = 0; i < Dim; i++)
-      for (k = 0; k < Dim; k++)
-  	   for (j = 0; j < Dim; j++)
-  C[i][j] += A[i][k] * B[k][j];
+    for (i = 0; i < Dim; i++){
+      for (k = 0; k < Dim; k++){
+        r =A[i][k];
+  	   for (j = 0; j < Dim; j++){
+        C[i][j] += r * B[k][j];
+      }}}
 
     printf("C[%d][%d] = %d\n", Dim-1, Dim-1, C[Dim-1][Dim-1]);
     return (C[Dim-1][Dim-1]);		/* and then we're done */
