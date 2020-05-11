@@ -1,33 +1,37 @@
 1. Which order performs the worst? Why? Please write down the latency captured by time for the worst order.
 
-order ijk performs the worst, because it does not exhibit spacial and temporal locality. The strides are accessing the elements in the least efficient manner, therefore it is the slowest. 
+order jki performs the worst, because it does not exhibit spacial and temporal locality. The strides are accessing the elements in the least efficient manner, therefore it is the slowest. 
 
-real	0m0.686s
-user	0m0.676s
-sys	0m0.004s
+real    0m49.630s
+user    0m48.542s
+sys    0m0.056s
 
 2. Which order performs the best? Why? Please write down the latency captured by time for the best best.
 
 ikj performs the best, because it exhibits spacial and temporal locality. The elements being accessed are in close proximity to eachother than the other order of strides, therefore is the most efficient. 
 
-real	0m0.258s
-user	0m0.249s
-sys	0m0.004s
+real 	0m0.825s
+user    0m0.802s
+sys    0m0.012s
 
 3. Does the way we stride through the matrices with respect to the innermost loop affect performance? 
 
-I don't believe so. I believe that the middle and first loop matter the most with regard to performance. 
+Yes, it does. As seen by ijk and ikj, which are very similar in times, because the innermost loop is different, that is the cause of the difference in times. For example, ijk's real time is: 0m3.363s, while the real time of ikj is: 0m0.825s. Because of the difference in the innermost loop, ikj is the fastest, while ijk is the second fastest.
+
 
 4. Please complete the following table using valgrind to measure D1 miss rate with regard to different matrix size.
-________________________________________________________________________________
-|Cache miss w.r.t matrix size	|1024	|512	|256	|128	|64	|32	|
-|-------------------------------------------------------------------------------|
-|matrix_mult_ijk		|	|	|	|	|	|	|
-|-------------------------------------------------------------------------------|
-|matrix_mult_jki		|	|	|	|	|	|	|
-|-------------------------------------------------------------------------------|
-|matrix_mult_ikj		|	|	|	|	|	|	|
-|_______________________________|_______|_______|_______|_______|_______|_______|
-	
++------------------------------+------------------------+---------------------+------------------------+---------------------+----------------------------+------------------+
+| Cache miss w.r.t matrix size | 1024                   | 512                 | 256                    | 128                 | 64                         | 32               |
++------------------------------+------------------------+---------------------+------------------------+---------------------+----------------------------+------------------+
+| matrix_mult_ijk              | 33.4%(33.4%+34.7%)     | 33.4%(33.4%+34.0%)  | 33.4%(33.4%+34.7%)     | 32.7% (32.9%+24.7%) | 33.4% (33.4% +34.7%)       | 4.1% (3.7%+6.9%) |
+|                              |                        |                     |                        |                     |                            |                  |
++------------------------------+------------------------+---------------------+------------------------+---------------------+----------------------------+------------------+
+| matrix_mult_jki              | 100.0%(100.0% + 18.6%) | 99.9%(100.0%+18.2%) | 100.0%(100.0% + 18.6%) | 98.4% (99.0%+13.5%) | 100.0% ( 100.0% + 18.6%  ) | 2.8% (2.3%+7.0%) |
++------------------------------+------------------------+---------------------+------------------------+---------------------+----------------------------+------------------+
+| matrix_mult_ikj              | 6.3%(8.3% + 0.1%)      | 6.3%(8.3%+0.1%)     | 6.3%(8.3% + 0.1%)      | 6.4% (8.3%+0.7%)    | 6.3% ( 8.3% + 0.1% )       | 3.7% (3.6%+4.2%) |
++------------------------------+------------------------+---------------------+------------------------+---------------------+----------------------------+------------------+
+
 5. Based on the table of q4, does the size of the matrix affect performance? Why? Have you noticed the cache miss rate dramatically changes upon a certain dim size? What is the size of the matrix when it happens? and why would it happen? 
+
+Yes, the size of the matrix definitely affects the performance by decreasing the run time, as well as the miss rate. Because of the smaller size, it has less data to process and it loops through less. The most drastic miss rate changes happen at size 32, because each input fits into a single line in the cache, therefore not running into any capacity issues. 
 
