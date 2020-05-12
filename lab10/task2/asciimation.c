@@ -95,8 +95,7 @@ void asciimation_play(asciimation_t * ascm){
 	for(int k = 0; k<slist_length(ascm->frames); k++){
 		double sec = ascm->frames_per_second;
 		printf("%s", frame_get_content(snode_get_data(slist_find_at(ascm->frames, k))));
-	sleep(frame_get_rep_counter(snode_get_data(slist_find_at(ascm->frames, k))) * (((double) 1) / ascm->frames_per_second));
-	//	sleep((sec*frame_get_rep_counter(snode_get_data(slist_find_at(ascm->frames, k))))/sec);
+		sleep((sec*frame_get_rep_counter(snode_get_data(slist_find_at(ascm->frames, k))))/sec);
 		//sleep(1/sec);
 		system("@cls||clear");
 
@@ -109,7 +108,6 @@ void asciimation_reverse(asciimation_t * ascm){
 	int sec = ascm->frames_per_second;
 	for(int k = slist_length(ascm->frames)-1; k>=0; k--){
 		printf("%s", frame_get_content(snode_get_data(slist_find_at(ascm->frames, k))));
-		//sleep(frame_get_rep_counter(snode_get_data(slist_find_at(ascm->frames, k))) * (((double) 1) / ascm->frames_per_second));
 		sleep((sec*frame_get_rep_counter(snode_get_data(slist_find_at(ascm->frames, k))))/sec);
 	//sleep(1);
 		system("@cls||clear");
