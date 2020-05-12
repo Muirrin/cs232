@@ -1,19 +1,37 @@
-X = 5
-Y = 9
+X = 9
+Y = 5
+
+
+Expected result should be X-Y
 
 Convert X and Y to 16-bit binaries
-----------------------------------------
-|	  | output_X	| output_Y	|	
------------------------------------------
-|after	zx|		|  		|
-|---------|-------------|---------------|
-|after  nx|             |               |
-|---------|-------------|---------------|
-|after  zy|             |              	|
-|-----------------------|---------------|
-|after  ny|             |               |
-|---------------------------------------|
-|after   f|                             |
-|---------------------------------------|
-|after  no|                             |
------------------------------------------ 
+y = 0b 0000 0000 0000 0101
+x = 0b 0000 0000 0000 1001
+
+zx = 0
+//zx zeroes out x, but since zx = 0, don't do it
+output of selector controlled by zx: 0b 0000 0000 0000 1001
+
+nx = 1
+//nx negates x since nx = 1
+output of selector controlled by nx: 0b 1111 1111 1111 0110
+
+
+zy = 0
+
+//zy zeros out y, but since zy = 0, don't do anything
+output of selector controlled by zy: 0b 0000 0000 0000 0101
+
+ny = 0
+//ny negates y, but since ny = 0, dont do anything
+output of selector controlled by ny: 0b 0000 0000 0000 0101
+
+f = 1
+// since f = 1, perform x + y
+output of selector controlled by f:  0b 1111 1111 1111 1011
+
+no = 1
+//since no =1, negate output of f
+output of selector controlled by no: 0b 0000 0000 0000 0100
+
+Therefore the output is 4!!!!!!
